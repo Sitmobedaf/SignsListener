@@ -1,0 +1,5 @@
+name: SignsListener
+author: SiT
+main: ru.SignsListener.Main
+description: Outputs to log/console labels that players writte on the signs.
+version: 1.1
