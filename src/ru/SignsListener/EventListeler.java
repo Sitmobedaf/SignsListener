@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.regex.Matcher;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -57,30 +59,43 @@ public class EventListeler implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onBookChange(PlayerEditBookEvent e) {
-		if (e.getPlayer() != null) {
+		if (!e.isCancelled() && e.getPlayer() != null) {
 			Player p = e.getPlayer();
 			if (!e.getPreviousBookMeta().equals(e.getNewBookMeta())) {
 				if (conf.getBoolean("BooksListener.Enabled")) {
-
 					String title = conf.getString("BooksListener.WithoutTitle");
 					if (e.getNewBookMeta().getTitle() != null) {
 						title = e.getNewBookMeta().getTitle();
 					}
-					List<String> text = e.getNewBookMeta().getPages();
+					List<String> pages = e.getNewBookMeta().getPages();
+					String text = pages.toString().replaceAll("\n", " + ");
 					String x = "" + p.getLocation().getBlockX();
 					String y = "" + p.getLocation().getBlockY();
 					String z = "" + p.getLocation().getBlockZ();
 					String w = p.getWorld().getName();
-					String booksFormat = conf.getString("BooksListener.OutputFormat").replace("<player>", p.getName()).replace("<world>", w).replace("<x>", x).replaceAll("<y>", y).replaceAll("<z>", z).replaceAll("<title>", title).replaceAll("<text>", text.toString());
-					
-					if (conf.getBoolean("BooksListener.UseDifferentFile")) {
+					if (!p.hasPermission("BooksListener.useFormatting") && conf.getBoolean("BooksListener.BlockFormatting")) {
+						for (String text1 : e.getNewBookMeta().getPages()) {
+							if (text1.contains("§")) {
+								e.setCancelled(true);
+								p.sendMessage(conf.getString("BooksListener.FormattingBlocked").replaceAll("&", "§"));
+							}
+						}
+					}
+					String booksFormat = null;
+					try {
+						booksFormat = conf.getString("BooksListener.OutputFormat").replace("<player>", p.getName()).replace("<world>", w).replace("<x>", x).replaceAll("<y>", y).replaceAll("<z>", z).replaceAll("<title>", title).replaceAll("<text>", Matcher.quoteReplacement(text.toString()));
+					} catch (IllegalArgumentException ex) {
+						p.sendMessage(conf.getString("BooksListener.IllegalSymbols").replaceAll("&", "§"));
+						e.setCancelled(true);
+					}
+					if (!e.isCancelled() && conf.getBoolean("BooksListener.UseDifferentFile")) {
 						try (FileWriter bookLog = new FileWriter(path + "books.txt", true); BufferedWriter bookBuff = new BufferedWriter(bookLog); PrintWriter outBook = new PrintWriter(bookBuff)) {
 							outBook.println(booksFormat);
 						} catch (NullPointerException | IOException ex) {
 							Bukkit.getLogger().warning("Could not write to file. Error message: " + ex.getMessage());
 						}
 					}
-					if (!conf.getBoolean("BooksListener.UseDifferentFile")) {
+					if (!e.isCancelled() && !conf.getBoolean("BooksListener.UseDifferentFile")) {
 						Bukkit.getLogger().info(booksFormat);
 					}
 				}

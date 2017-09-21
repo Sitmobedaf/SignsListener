@@ -5,7 +5,8 @@ SignsListener:
 BooksListener:
   Enabled: true
   UseDifferentFile: false
-  BlockFormatting: true
+  BlockFormatting: false
   OutputFormat: "[BooksListener] <player> ([<world>] <x>, <y>, <z>) <title> <text>"
   WithoutTitle: "<Книга не подписана>"
   IllegalSymbols: "&cВаша книга содержит недопустимые символы."
+  FormattingBlocked: "&cВам не разрешено использовать коды форматирования в книге."
