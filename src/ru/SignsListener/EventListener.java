@@ -19,8 +19,8 @@ import org.bukkit.event.player.PlayerEditBookEvent;
 
 import ru.SignsListener.Main;
 
-public class EventListeler implements Listener {
-	public EventListeler(Main main) {
+public class EventListener implements Listener {
+	public EventListener(Main main) {
 		super();
 	}
 

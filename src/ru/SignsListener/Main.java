@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ru.SignsListener.EventListeler;
+import ru.SignsListener.EventListener;
 
 public class Main extends JavaPlugin {
 	public static Main inst;
@@ -21,7 +21,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		inst = this;
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvents(new EventListeler(this), this);
+		pm.registerEvents(new EventListener(this), this);
 		
 		this.saveDefaultConfig();
 		
