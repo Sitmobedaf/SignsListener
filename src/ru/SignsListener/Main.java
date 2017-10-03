@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
 		
 		File books = new File(path + "books.txt");
 		File signs = new File(path + "signs.txt");
+		File items = new File(path + "items.txt");
 		
 		if (conf.getBoolean("BooksListener.Enabled") && conf.getBoolean("BooksListener.UseDifferentFile")) {
 			if (!books.exists()) {
@@ -42,6 +43,16 @@ public class Main extends JavaPlugin {
 			if (!signs.exists()) {
 				try {
 					signs.createNewFile();
+				} catch (IOException e) {
+					this.getLogger().warning("Could not create a new file. Error message: " + e.getMessage());
+				}
+			}
+		}
+		
+		if (conf.getBoolean("ItemsListener.Enabled") && conf.getBoolean("ItemsListener.UseDifferentFile")) {
+			if (!items.exists()) {
+				try {
+					items.createNewFile();
 				} catch (IOException e) {
 					this.getLogger().warning("Could not create a new file. Error message: " + e.getMessage());
 				}

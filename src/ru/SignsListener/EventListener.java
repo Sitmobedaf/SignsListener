@@ -10,12 +10,19 @@ import java.util.regex.Matcher;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerEditBookEvent;
+import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import ru.SignsListener.Main;
 
@@ -115,6 +122,53 @@ public class EventListener implements Listener {
 					}
 					if (!e.isCancelled() && !conf.getBoolean("BooksListener.UseDifferentFile")) {
 						Bukkit.getLogger().info(booksFormat);
+					}
+				}
+			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onInventoryClick(InventoryClickEvent e) {
+		if (conf.getBoolean("ItemsListener.Enabled")) {
+			HumanEntity ent = e.getWhoClicked();
+			if (ent instanceof Player) {
+				Player p = (Player) ent;
+				Inventory inv = e.getInventory();
+				if (inv instanceof AnvilInventory) {
+					InventoryView view = e.getView();
+					int rawSlot = e.getRawSlot();
+					if (rawSlot == 2 && rawSlot == view.convertSlot(rawSlot)) {
+						ItemStack item = e.getCurrentItem();
+						if (item != null) {
+							ItemMeta meta = item.getItemMeta();
+							if (meta != null) {
+								if (meta.hasDisplayName()) {
+									String text = meta.getDisplayName();
+									String x = "" + p.getLocation().getBlockX();
+									String y = "" + p.getLocation().getBlockY();
+									String z = "" + p.getLocation().getBlockZ();
+									String w = p.getWorld().getName();
+									String itemsFormat = null;
+									try {
+										itemsFormat = conf.getString("ItemsListener.OutputFormat").replace("<player>", p.getName()).replace("<world>", w).replace("<x>", x).replaceAll("<y>", y).replaceAll("<z>", z).replaceAll("<text>", Matcher.quoteReplacement(text));
+									} catch (Exception ex) {
+										p.sendMessage(conf.getString("ItemsListener.IllegalSymbols").replaceAll("&", "§"));
+										e.setCancelled(true);
+									}
+									if (!e.isCancelled() && conf.getBoolean("ItemsListener.UseDifferentFile")) {
+										try (FileWriter itemLog = new FileWriter(path + "items.txt", true); BufferedWriter itemBuff = new BufferedWriter(itemLog); PrintWriter outItem = new PrintWriter(itemBuff)) {
+											outItem.println(itemsFormat);
+										} catch (NullPointerException | IOException ex) {
+											Bukkit.getLogger().warning("Could not write to file. Error message: " + ex.getMessage());
+										}
+									}
+									if (!e.isCancelled() && !conf.getBoolean("ItemsListener.UseDifferentFile")) {
+										Bukkit.getLogger().info(itemsFormat);
+									}
+								}
+							}
+						}
 					}
 				}
 			}
