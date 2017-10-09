@@ -91,8 +91,8 @@ public class EventListener implements Listener {
 					}
 					List<String> pages = e.getNewBookMeta().getPages();
 					String text = null;
+					StringBuilder builder = new StringBuilder();
 					for (String onePage : pages) {
-						StringBuilder builder = new StringBuilder();
 						builder.append(onePage);
 						text = builder.toString().replaceAll("\n", conf.getString("BooksListener.Separator")).replaceAll("§0", "");
 					}
