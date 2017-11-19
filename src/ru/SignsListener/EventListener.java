@@ -47,9 +47,9 @@ public class EventListener implements Listener {
 					StringBuilder builder = new StringBuilder();
 					builder.append(line1).append(conf.getString("SignsListener.Separator")).append(line2).append(conf.getString("SignsListener.Separator")).append(line3).append(conf.getString("SignsListener.Separator")).append(line4);
 					String text = builder.toString();
-					String x = "" + p.getLocation().getBlockX();
-					String y = "" + p.getLocation().getBlockY();
-					String z = "" + p.getLocation().getBlockZ();
+					String x = String.valueOf(p.getLocation().getBlockX());
+					String y = String.valueOf(p.getLocation().getBlockY());
+					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
 					if (!p.hasPermission("SignsListener.useFormatting") && conf.getBoolean("SignsListener.BlockFormatting")) {
 						if (text.contains("§")) {
@@ -96,9 +96,9 @@ public class EventListener implements Listener {
 						builder.append(onePage);
 						text = builder.toString().replaceAll("\n", conf.getString("BooksListener.Separator")).replaceAll("§0", "");
 					}
-					String x = "" + p.getLocation().getBlockX();
-					String y = "" + p.getLocation().getBlockY();
-					String z = "" + p.getLocation().getBlockZ();
+					String x = String.valueOf(p.getLocation().getBlockX());
+					String y = String.valueOf(p.getLocation().getBlockY());
+					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
 					if (!p.hasPermission("BooksListener.useFormatting") && conf.getBoolean("BooksListener.BlockFormatting")) {
 						if (text.contains("§")) {
@@ -145,9 +145,9 @@ public class EventListener implements Listener {
 							if (meta != null) {
 								if (meta.hasDisplayName()) {
 									String text = meta.getDisplayName();
-									String x = "" + p.getLocation().getBlockX();
-									String y = "" + p.getLocation().getBlockY();
-									String z = "" + p.getLocation().getBlockZ();
+									String x = String.valueOf(p.getLocation().getBlockX());
+									String y = String.valueOf(p.getLocation().getBlockY());
+									String z = String.valueOf(p.getLocation().getBlockZ());
 									String w = p.getWorld().getName();
 									String itemsFormat = null;
 									try {
