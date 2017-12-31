@@ -3,3 +3,13 @@ author: SiT
 main: ru.SignsListener.Main
 description: Outputs to log/console labels that players writte on the signs and books.
 version: 1.5
+
+commands:
+  signslistener:
+    description: Main plugin command.
+    aliases: [sl]
+
+permissions:
+  SignsListener.signs.notice:
+  SignsListener.books.notice:
+  SignsListener.items.notice:
