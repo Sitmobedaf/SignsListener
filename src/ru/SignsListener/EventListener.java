@@ -70,9 +70,15 @@ public class EventListener implements Listener {
 						} catch (NullPointerException | IOException ex) {
 							Bukkit.getLogger().warning("Could not write to file. Error message: " + ex.getMessage());
 						}
-					}
-					if (!conf.getBoolean("SignsListener.UseDifferentFile")) {
+					} else if (!e.isCancelled()) {
 						Bukkit.getLogger().info(signsFormat);
+						if (conf.getBoolean("SignsListener.StaffNotice")) {
+							for (Player op : Bukkit.getOnlinePlayers()) {
+								if (op.hasPermission("SignsListener.signs.notice")) {
+									op.sendMessage(signsFormat);
+								}
+							}
+						}
 					}
 				}
 			}
@@ -119,9 +125,15 @@ public class EventListener implements Listener {
 						} catch (NullPointerException | IOException ex) {
 							Bukkit.getLogger().warning("Could not write to file. Error message: " + ex.getMessage());
 						}
-					}
-					if (!e.isCancelled() && !conf.getBoolean("BooksListener.UseDifferentFile")) {
+					} else if (!e.isCancelled()) {
 						Bukkit.getLogger().info(booksFormat);
+						if (conf.getBoolean("BooksListener.StaffNotice")) {
+							for (Player op : Bukkit.getOnlinePlayers()) {
+								if (op.hasPermission("SignsListener.books.notice")) {
+									op.sendMessage(booksFormat);
+								}
+							}
+						}
 					}
 				}
 			}
@@ -162,9 +174,15 @@ public class EventListener implements Listener {
 										} catch (NullPointerException | IOException ex) {
 											Bukkit.getLogger().warning("Could not write to file. Error message: " + ex.getMessage());
 										}
-									}
-									if (!e.isCancelled() && !conf.getBoolean("ItemsListener.UseDifferentFile")) {
+									} else if (!e.isCancelled()) {
 										Bukkit.getLogger().info(itemsFormat);
+										if (conf.getBoolean("ItemsListener.StaffNotice")) {
+											for (Player op : Bukkit.getOnlinePlayers()) {
+												if (op.hasPermission("SignsListener.items.notice")) {
+													op.sendMessage(itemsFormat);
+												}
+											}
+										}
 									}
 								}
 							}

@@ -5,6 +5,8 @@ SignsListener:
   UseDifferentFile: false
   # Запретить использовать коды форматирования (символ §)
   BlockFormatting: false
+  # Уведомлять сотрудников сервера имеющих привилегию SignsListener.signs.notice
+  StaffNotice: false
   # Формат вывода данных. Изменяйте, только если уверены
   OutputFormat: "[SignsListener] <player> ([<world>] <x>, <y>, <z>) <text>"
   # Плагин выводит сообщение в одну строку. Можно использова "/n" для переноса каждой строки
@@ -21,6 +23,8 @@ BooksListener:
   UseDifferentFile: false
   # Запретить использовать коды форматирования (символ §)
   BlockFormatting: false
+  # Уведомлять сотрудников сервера имеющих привилегию SignsListener.books.notice
+  StaffNotice: false
   # Формат вывода данных. Изменяйте, только если уверены
   OutputFormat: "[BooksListener] <player> ([<world>] <x>, <y>, <z>) <title> <text>"
   # Плагин выводит сообщение в одну строку. Можно использова "/n" для переноса каждой строки
@@ -38,6 +42,8 @@ ItemsListener:
   Enabled: true
   # Использовать отдельный файл для вывода данных. Файл будет расположен - /plugins/SignsListener/items.txt
   UseDifferentFile: false
+  # Уведомлять сотрудников сервера имеющих привилегию SignsListener.items.notice
+  StaffNotice: false
   # Формат вывода данных. Изменяйте, только если уверены
   OutputFormat: "[ItemsListener] <player> ([<world>] <x>, <y>, <z>) <text>"
   # Данное сообщение выдаётся игроку если при обработке имени предмета произошла ошибка
