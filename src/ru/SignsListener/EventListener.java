@@ -51,10 +51,13 @@ public class EventListener implements Listener {
 					String y = String.valueOf(p.getLocation().getBlockY());
 					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
-					if (!p.hasPermission("SignsListener.useFormatting") && conf.getBoolean("SignsListener.BlockFormatting")) {
-						if (text.contains("§")) {
-							p.sendMessage(conf.getString("SignsListener.FormattingBlocked").replaceAll("&", "§"));
-							e.setCancelled(true);
+					if (conf.getBoolean("SignsListener.BlockFormatting")) {
+						if (!p.hasPermission("SignsListener.useFormatting")) {
+							if (text.contains("§")) {
+								p.sendMessage(conf.getString("SignsListener.FormattingBlocked").replaceAll("&", "§"));
+								e.setCancelled(true);
+								return;
+							}
 						}
 					}
 					String signsFormat = null;
@@ -106,10 +109,13 @@ public class EventListener implements Listener {
 					String y = String.valueOf(p.getLocation().getBlockY());
 					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
-					if (!p.hasPermission("BooksListener.useFormatting") && conf.getBoolean("BooksListener.BlockFormatting")) {
-						if (text.contains("§")) {
-							p.sendMessage(conf.getString("BooksListener.FormattingBlocked").replaceAll("&", "§"));
-							e.setCancelled(true);
+					if (conf.getBoolean("BooksListener.BlockFormatting")) {
+						if (!p.hasPermission("BooksListener.useFormatting")) {
+							if (text.contains("§")) {
+								p.sendMessage(conf.getString("BooksListener.FormattingBlocked").replaceAll("&", "§"));
+								e.setCancelled(true);
+								return;
+							}
 						}
 					}
 					String booksFormat = null;
