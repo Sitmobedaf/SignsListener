@@ -2,7 +2,7 @@ name: SignsListener
 author: SiT
 main: ru.SignsListener.Main
 description: Outputs to log/console labels that players writte on the signs and books.
-version: 1.5
+version: 1.6
 
 commands:
   signslistener:
@@ -10,6 +10,9 @@ commands:
     aliases: [sl]
 
 permissions:
+  SignsListener.admin:
   SignsListener.signs.notice:
   SignsListener.books.notice:
   SignsListener.items.notice:
+  SignsListener.useFormatting:
+  BooksListener.useFormatting:

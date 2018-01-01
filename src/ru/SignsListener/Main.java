@@ -70,6 +70,9 @@ public class Main extends JavaPlugin {
 
 	public void loadConfiguration() {
 		File file = new File(this.getDataFolder() + File.separator + "config.yml");
+		if (!file.exists()) {
+			this.saveDefaultConfig();
+		}
 		conf = YamlConfiguration.loadConfiguration(file);
 	}
 }

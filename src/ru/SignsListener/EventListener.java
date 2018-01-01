@@ -33,7 +33,7 @@ public class EventListener implements Listener {
 	public void onSignChange(SignChangeEvent e) throws FileNotFoundException {
 		if (!e.isCancelled() && e.getPlayer() != null) {
 			Player p = e.getPlayer();
-			if (!e.getLine(0).equals("") || !e.getLine(1).equals("") || !e.getLine(2).equals("") || !e.getLine(3).equals("")) {
+			if (!e.getLine(0).isEmpty() || !e.getLine(1).isEmpty() || !e.getLine(2).isEmpty() || !e.getLine(3).isEmpty()) {
 				if (plugin.conf.getBoolean("SignsListener.Enabled")) {
 					String line1 = e.getLine(0);
 					String line2 = e.getLine(1);
