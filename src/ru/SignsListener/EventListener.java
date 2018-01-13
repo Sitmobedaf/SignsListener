@@ -47,7 +47,7 @@ public class EventListener implements Listener {
 					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
 					if (plugin.conf.getBoolean("SignsListener.BlockFormatting")) {
-						if (!p.hasPermission("SignsListener.useFormatting")) {
+						if (!p.hasPermission("SignsListener.signs.useFormatting")) {
 							if (text.contains("§")) {
 								p.sendMessage(plugin.conf.getString("SignsListener.FormattingBlocked").replaceAll("&", "§"));
 								e.setCancelled(true);
@@ -106,7 +106,7 @@ public class EventListener implements Listener {
 					String z = String.valueOf(p.getLocation().getBlockZ());
 					String w = p.getWorld().getName();
 					if (plugin.conf.getBoolean("BooksListener.BlockFormatting")) {
-						if (!p.hasPermission("BooksListener.useFormatting")) {
+						if (!p.hasPermission("SignsListener.books.useFormatting")) {
 							if (text.contains("§")) {
 								p.sendMessage(plugin.conf.getString("BooksListener.FormattingBlocked").replaceAll("&", "§"));
 								e.setCancelled(true);
