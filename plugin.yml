@@ -2,7 +2,7 @@ name: SignsListener
 author: SiT
 main: ru.SignsListener.Main
 description: Outputs to log/console labels that players writte on the signs and books.
-version: 1.6
+version: 1.6.1
 
 commands:
   signslistener:
@@ -11,8 +11,14 @@ commands:
 
 permissions:
   SignsListener.admin:
+    description: Access to main plugin command
   SignsListener.signs.notice:
+    description: Ability to receive notifications from the Signs module
+  SignsListener.signs.useFormatting:
+    description: Ability to use color codes in signs (if a BlockFormatting is Enabled)
   SignsListener.books.notice:
+    description: Ability to receive notifications from the Books module
+  SignsListener.books.useFormatting:
+    description: Ability to use color codes in books (if a BlockFormatting is Enabled)
   SignsListener.items.notice:
-  SignsListener.useFormatting:
-  BooksListener.useFormatting:
+    description: Ability to receive notifications from the Items module
